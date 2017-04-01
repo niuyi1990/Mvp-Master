@@ -36,7 +36,9 @@ public class ApiEngine {
                 Log.i("RxJava", message);
             }
         });
-
+        //日志拦截器
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //缓存
 //        int size = 1024 * 1024 * 100;
 //        File cacheFile = new File(Constant.CACHE_PATH, "OkHttpCache");
@@ -48,7 +50,7 @@ public class ApiEngine {
                 .readTimeout(10, TimeUnit.SECONDS)
 //                .addNetworkInterceptor(mCacheControlInterceptor)
 //                .addInterceptor(mCacheControlInterceptor)
-                .addInterceptor(interceptor)
+                .addInterceptor(loggingInterceptor)
 //                .cache(cache)
                 .build();
 
