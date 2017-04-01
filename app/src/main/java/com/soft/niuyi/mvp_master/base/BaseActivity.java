@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.soft.niuyi.mvp_master.utils.NetUtils;
+
 import butterknife.ButterKnife;
 
 /**
@@ -27,6 +29,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         setContentView(mContextView);
         ButterKnife.bind(this);
         initView(mContextView);//初始化控件
+        hasNetwork(NetUtils.isConnected(this));
         setListener(this);//设置监听
         toDo(this);//处理业务逻辑
     }
@@ -34,7 +37,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter!=null){
+        if (mPresenter != null) {
             mPresenter.unSubscribe();
         }
     }
@@ -52,6 +55,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected abstract void initView(final View view);
 
     /**
+     * 判断是否有网络存在
+     *
+     * @param b
+     */
+    protected abstract void hasNetwork(boolean b);
+
+    /**
      * 设置监听
      */
     protected abstract void setListener(Context mContext);
@@ -65,8 +75,17 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     /**
      * 创建Presenter
+     *
      * @return
      */
     protected abstract P onCreatePresenter();
 
+    /**
+     * 判断是否有网络
+     *
+     * @return
+     */
+//    public boolean hasNetwork() {
+//        return NetUtils.isConnected(this);
+//    }
 }

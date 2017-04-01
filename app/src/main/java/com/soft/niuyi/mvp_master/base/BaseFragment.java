@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.soft.niuyi.mvp_master.utils.NetUtils;
+
 import butterknife.ButterKnife;
 
 /**
@@ -49,6 +51,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
         if (mContextView == null) mContextView = inflater.inflate(bindLayout(), container, false);
         ButterKnife.bind(this, mContextView);
         initView(mContextView);
+        hasNetwork(NetUtils.isConnected(mContext));
         toDo(getActivity());//业务处理
         setListener(getActivity());//设置监听
         return mContextView;
@@ -96,6 +99,13 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
      * 初始化控件
      */
     protected abstract void initView(final View view);
+
+    /**
+     * 判断是否有网络存在
+     *
+     * @param b
+     */
+    protected abstract void hasNetwork(boolean b);
 
     /**
      * 设置监听

@@ -30,6 +30,11 @@ public class MainActivity extends BaseActivity<LoginPresenter> implements LoginC
     }
 
     @Override
+    protected void hasNetwork(boolean b) {
+        Toast.makeText(this, "------" + b, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void setListener(Context mContext) {
 
     }
